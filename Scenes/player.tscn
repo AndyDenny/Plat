@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://ck323mrpdemu4"]
+
+[ext_resource type="Texture2D" uid="uid://cdmix7ajoggcj" path="res://Tilemap/tilemap-characters.png" id="1_ulyil"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_xrvph"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_reqmq"]
+atlas = ExtResource("1_ulyil")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ei7wy"]
+atlas = ExtResource("1_ulyil")
+region = Rect2(25, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_grarg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_reqmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei7wy")
+}],
+"loop": true,
+"name": &"idle-run",
+"speed": 4.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_61054"]
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 2
+script = ExtResource("1_xrvph")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_grarg")
+animation = &"idle-run"
+autoplay = "idle-run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_61054")
