@@ -1,27 +1,53 @@
-[gd_scene load_steps=7 format=3 uid="uid://ck323mrpdemu4"]
+[gd_scene load_steps=11 format=3 uid="uid://ck323mrpdemu4"]
 
 [ext_resource type="Texture2D" uid="uid://cdmix7ajoggcj" path="res://Tilemap/tilemap-characters.png" id="1_ulyil"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_xrvph"]
+[ext_resource type="Texture2D" uid="uid://cxm1bu7nrjhpe" path="res://Tilemap/tilemap-characters_packed.png" id="3_vbf3b"]
+[ext_resource type="AudioStream" uid="uid://djwylidw5rsdu" path="res://Sounds/jump.wav" id="4_2juql"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_reqmq"]
 atlas = ExtResource("1_ulyil")
 region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ei7wy"]
-atlas = ExtResource("1_ulyil")
-region = Rect2(25, 0, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_c27a8"]
+atlas = ExtResource("3_vbf3b")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wv7k"]
+atlas = ExtResource("3_vbf3b")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvc7i"]
+atlas = ExtResource("3_vbf3b")
+region = Rect2(24, 0, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_grarg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_reqmq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ei7wy")
 }],
 "loop": true,
-"name": &"idle-run",
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c27a8")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wv7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvc7i")
+}],
+"loop": true,
+"name": &"run",
 "speed": 4.0
 }]
 
@@ -35,9 +61,14 @@ script = ExtResource("1_xrvph")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_grarg")
-animation = &"idle-run"
-autoplay = "idle-run"
+animation = &"jump"
+autoplay = "idle"
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_61054")
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -12)
+stream = ExtResource("4_2juql")
